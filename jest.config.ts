@@ -17,8 +17,9 @@ const config: Config = {
     'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg)'
   ],
   // The navigation test need to have a modified test environment to work properly
-  setupFiles: ['./jest.setup.js']
+  setupFiles: ['./jest.setup.js'],
   // Example below of running a setup after the setupFiles finished creating the test environment
-  //setupFilesAfterEnv:["@testing-library/jest-native/extended-expect"],
+  // setupFilesAfterEnv:["@testing-library/jest-native/extended-expect"],
+
 };
 export default config;

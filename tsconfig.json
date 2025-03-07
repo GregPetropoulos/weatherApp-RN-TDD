@@ -13,5 +13,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-, "jest.config.ts"  ]
+, "jest.config.ts", "__mocks__/expo-router.js"  ]
 }

@@ -8,12 +8,12 @@ import moment from 'moment';
 import WeatherCoordinates from '@/components/WeatherCoordinates';
 import WeatherCurrent from '@/components/WeatherCurrent';
 
-export default function TabOneScreen() {
+export default function TabHomeScreen() {
   const now = moment(new Date());
   return (
     // <View style={styles.container}>
     <LinearGradient
-      testID='linearGradient-HomeScreen'
+      testID='HomeScreen'
       colors={[Colors.dark.background, Colors.light.background]}
       // colors={['#4c669f', '#3b5998', '#192f6a']}
       // colors={['rgba(0,0,0,0.8)', 'transparent']}
@@ -21,12 +21,12 @@ export default function TabOneScreen() {
       style={styles.background}>
       <Text style={styles.date}>{now.format('MMM DD, YYYY')}</Text>
       <Text style={styles.day}>{now.format('dddd')}</Text>
-      <Text style={styles.title}>Welcome!</Text>
+      <Text style={styles.title} testID='home-text'>Welcome!</Text>
 
       {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
-      <WeatherCurrent/>
+      {/* <WeatherCurrent/> */}
       <Text testID='home-screen-divider' style={styles.divider}>Or</Text>
-      <WeatherCoordinates/>
+      {/* <WeatherCoordinates/> */}
     </LinearGradient>
     // </View>
   );
