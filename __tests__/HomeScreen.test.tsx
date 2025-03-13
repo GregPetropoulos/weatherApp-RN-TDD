@@ -26,7 +26,7 @@ describe('<HomeScreen />', () => {
     // const tree = render(<HomeScreen />).toJSON();
     // expect(tree).toMatchSnapshot();
   });
-  describe('Title Section', () => {
+  describe('Title Section From DateDay component', () => {
     beforeEach(() => {
       jest.useFakeTimers();
       //jest.setSystemTime(946684800000); //Fri Dec 31 1999 19:00:00 GMT-0500 (Eastern Standard Time
@@ -44,6 +44,10 @@ describe('<HomeScreen />', () => {
       const wrapper = render(<HomeScreen />);
       const now = moment(new Date());
       wrapper.getByText(now.format('dddd'));
+    });
+    test('Should contain Title', () => {
+      const wrapper = render(<HomeScreen />);
+      wrapper.getByText('Welcome!');
     });
   });
 

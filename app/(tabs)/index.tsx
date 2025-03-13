@@ -4,44 +4,45 @@ import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { LinearGradient } from 'expo-linear-gradient';
 import Colors from '@/constants/Colors';
-import moment from 'moment';
 import WeatherCoordinates from '@/components/WeatherCoordinates';
 import WeatherCurrent from '@/components/WeatherCurrent';
+import DateDay from '@/components/DateDay';
 
 export default function TabHomeScreen() {
-  const now = moment(new Date());
   return (
-    // <View style={styles.container}>
-    <LinearGradient
-      testID='HomeScreen'
-      colors={[Colors.dark.background, Colors.light.background]}
-      // colors={['#4c669f', '#3b5998', '#192f6a']}
-      // colors={['rgba(0,0,0,0.8)', 'transparent']}
+    <View style={styles.container}>
+      <LinearGradient
+        testID='HomeScreen'
+        colors={[Colors.dark.background, Colors.light.background]}
+        // colors={['#4c669f', '#3b5998', '#192f6a']}
+        // colors={['rgba(0,0,0,0.8)', 'transparent']}
 
-      style={styles.background}>
-      <Text style={styles.date}>{now.format('MMM DD, YYYY')}</Text>
-      <Text style={styles.day}>{now.format('dddd')}</Text>
-      <Text style={styles.title} testID='home-text'>Welcome!</Text>
+        style={styles.background}>
+          <DateDay/>
+        {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
+        <View style={styles.weatherLocContent}>
 
-      {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
-      {/* <WeatherCurrent/> */}
-      <Text testID='home-screen-divider' style={styles.divider}>Or</Text>
-      {/* <WeatherCoordinates/> */}
-    </LinearGradient>
-    // </View>
+        <WeatherCurrent />
+        <Text testID='home-screen-divider' style={styles.divider}>
+          Or
+        </Text>
+        <WeatherCoordinates />
+        </View>
+      </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1
     // alignItems: 'center',
     // justifyContent: 'center',
     // backgroundColor: 'orange'
   },
   background: {
     flex: 1,
-    // alignItems: 'center',
+    alignItems: 'center'
     // justifyContent: 'center',
     // backgroundColor: 'orange'
     // position: 'absolute',
@@ -50,20 +51,15 @@ const styles = StyleSheet.create({
     // top: 0,
     // height: 300
   },
-  date: {
-    color: Colors.dark.text,
-    fontSize: 14
+ 
+  weatherLocContent:{
+    backgroundColor:'transparent', alignItems:'center', marginTop:10
   },
-  day: {
-    fontSize: 36,
-    color: Colors.dark.text
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold'
-  },
-  divider:{
-color:Colors.dark.text,
-textAlign:'center'
+  
+  divider: {
+    marginVertical: 25,
+    // color:Colors.dark.text,
+    color: 'red',
+    textAlign: 'center'
   }
 });

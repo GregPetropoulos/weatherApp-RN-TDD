@@ -4,8 +4,9 @@ import React from 'react';
 
 const WeatherCoordinates = () => {
   return (
-    <View testID='weather-coordinates' style={{ flex: 1 }}>
+    <View testID='weather-coordinates'>
       <Text>WeatherCoordinates</Text>
+      <Text>Raleigh, NC, USA</Text>
     </View>
   );
 };
