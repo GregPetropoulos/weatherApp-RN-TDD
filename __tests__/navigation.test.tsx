@@ -3,97 +3,58 @@ import {
   render,
   renderRouter,
   screen,
-
+  waitFor
 } from 'expo-router/testing-library';
 
 import { View, Text } from '@/components/Themed';
 import { Link } from 'expo-router';
 import TabLayout from '@/app/(tabs)/_layout';
 import TabHomeScreen from '@/app/(tabs)';
-import TabCurrentLocationScreen from '@/app/(tabs)/currentLocation';
-import TabCurrentWeatherScreen from '@/app/(tabs)/currentWeather';
+import TabWeatherScreen from '@/app/(tabs)/weather';
 
-
-//Mock screen components for testing
-// ============================≠≠≠≠≠≠≠≠≠=========
-// ============================≠≠≠≠≠≠≠≠≠=========
-// const MockTabHomeScreen= jest.fn(()=><Text testID='linearGradient-HomeScreen'>Welcome!</Text>)
-// const MockTabCurrentWeatherScreen = jest.fn(() => (
-//   <Text testID='currentWeather'>Current Weather</Text>
-// ));
-// const MockTabCurrentLocationScreen = jest.fn(() => (
-//   <Text testID='currentLocation'>Current Location</Text>
-// ));
-// ============================≠≠≠≠≠≠≠≠≠=========
-// ============================≠≠≠≠≠≠≠≠≠=========
-
-const MockTabHomeScreen = jest.fn(() => <TabHomeScreen />);
-const MockTabLayoutScreen = jest.fn(() => <TabLayout />);
-const MockTabCurrentWeatherScreen = jest.fn(() => <TabCurrentWeatherScreen />);
-const MockTabCurrentLocationScreen = jest.fn(() => (
-  <TabCurrentLocationScreen />
-));
-import RootLayout from '@/app/_layout';
+// MOCKS FOR ROUTES
+// const MockHomeScreen = jest.fn(() => <View><Text>Welcome!</Text></View>);
+// const MockWeatherScreen = jest.fn(() => <View><Text>My Weather Screen</Text></View>);
 
 describe('Static Navigation', () => {
-  it('navigates to Home Screen', async () => {
+  it('Initial Home Screen with / pathname', async () => {
     renderRouter(
       {
-        // _layout: () => <TabLayout />,
-        // '/': () => <RootLayout />,
-        // '(tabs)/_layout':MockTabLayoutScreen,
-        // '(tabs)/index': MockTabHomeScreen,
-        index: MockTabHomeScreen,
-        // '(tabs)/currentWeather':MockTabCurrentWeatherScreen,
-        // '(tabs)/currentLocation':MockTabCurrentLocationScreen
+        // Notice the pathname for the tabs layout? possible bug can use variations of _layout
+        //'(tabs)/_layout/': () => <TabLayout />,
+
+        '/app/_layout/(tabs)/_layout/': () => <TabLayout />,
+        '(tabs)/': () => <TabHomeScreen />,
+        '(tabs)/weather': () => <TabWeatherScreen />
       },
       {
         initialUrl: '/'
       }
     );
-    expect(await screen.getByText('Welcome!')).toBeOnTheScreen()
-    expect(screen.getByText('Welcome!'))
-    expect(await screen.getByText('Welcome!')).toBeVisible();
+    expect(await screen.getByText('Welcome!')).toBeOnTheScreen();
+    expect(await screen.findByTestId('DateDayComponent'));
+    expect(await screen.findByTestId('WeatherCurrentComponent'));
+    expect(await screen.findByTestId('WeatherCoordinatesComponent'));
+    expect(screen).toHavePathname('/');
   });
-  it('navigates to Current Weather Screen', async () => {
+
+  it('Weather Tab Navigation has weather pathname', async () => {
     renderRouter(
       {
-        // _layout: () => <TabLayout />,
-        // '/': () => <RootLayout />,
-        // '(tabs)/_layout':MockTabLayoutScreen,
-        // '(tabs)/index': MockTabHomeScreen,
-        index: MockTabHomeScreen,
-        '(tabs)/currentWeather':MockTabCurrentWeatherScreen,
-        // '(tabs)/currentLocation':MockTabCurrentLocationScreen
+        'app/_layout': () => <TabLayout />,
+        // 'app/_layout/(tabs)/_layout': () => <TabLayout />,
+        '(tabs)/': () => <TabHomeScreen />,
+        '(tabs)/weather': () => <TabWeatherScreen />
       },
       {
-        initialUrl: '/currentWeather'
+        initialUrl: '(tabs)/weather'
       }
     );
-    expect(await screen.getByText('Current Weather Screen')).toBeOnTheScreen()
-    expect(screen.getByText('Current Weather Screen'))
-    expect(await screen.getByText('Current Weather Screen')).toBeVisible();
+
+    expect(await screen.getByText('My Weather Screen')).toBeOnTheScreen();
+    expect(await screen.getByTestId('WeatherScreen'));
+    expect(screen).toHavePathname('/weather');
   });
-  it('navigates to Current Location Screen', async () => {
-    renderRouter(
-      {
-        // _layout: () => <TabLayout />,
-        // '/': () => <RootLayout />,
-        // '(tabs)/_layout':MockTabLayoutScreen,
-        // '(tabs)/index': MockTabHomeScreen,
-        index: MockTabHomeScreen,
-        '(tabs)/currentWeather':MockTabCurrentWeatherScreen,
-        '(tabs)/currentLocation':MockTabCurrentLocationScreen
-      },
-      {
-        initialUrl: '/currentLocation'
-      }
-    );
-    expect(await screen.getByText('Current Location Screen')).toBeOnTheScreen()
-    expect(screen.getByText('Current Location Screen'))
-    expect(await screen.getByText('Current Location Screen')).toBeVisible();
-  });
-  
 });
 
 //!Work for links not tabs

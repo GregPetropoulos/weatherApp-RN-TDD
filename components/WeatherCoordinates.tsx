@@ -4,7 +4,7 @@ import React from 'react';
 
 const WeatherCoordinates = () => {
   return (
-    <View testID='weather-coordinates'>
+    <View testID='WeatherCoordinatesComponent'>
       <Text>WeatherCoordinates</Text>
       <Text>Raleigh, NC, USA</Text>
     </View>

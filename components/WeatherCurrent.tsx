@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from './Themed';
 const WeatherCurrent = () => {
   return (
-    <View testID='weather-current'>
+    <View testID='WeatherCurrentComponent'>
       <Text>WeatherCurrent</Text>
       <Text>100F Sunny</Text>
     </View>

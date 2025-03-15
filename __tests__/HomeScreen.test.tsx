@@ -10,12 +10,11 @@ import moment from 'moment';
 //   test('pSeudo for now', () => {});
 // });
 //Create a mock of child component with file path jest.fn
-jest.mock('../components/WeatherCoordinates', () =>
-  jest.fn().mockReturnValue(null)
-);
-jest.mock('../components/WeatherCurrent', () =>
-  jest.fn().mockReturnValue(null)
-);
+// This is testing the functional component exists on the screen, don't need the value of the component
+//prettier-ignore
+jest.mock('../components/WeatherCoordinates', () => jest.fn().mockReturnValue(null));
+//prettier-ignore
+jest.mock('../components/WeatherCurrent', () =>jest.fn().mockReturnValue(null));
 
 describe('<HomeScreen />', () => {
   test('Text renders correctly on HomeScreen', () => {
@@ -26,7 +25,7 @@ describe('<HomeScreen />', () => {
     // const tree = render(<HomeScreen />).toJSON();
     // expect(tree).toMatchSnapshot();
   });
-  describe('Title Section From DateDay component', () => {
+  describe('Title Section', () => {
     beforeEach(() => {
       jest.useFakeTimers();
       //jest.setSystemTime(946684800000); //Fri Dec 31 1999 19:00:00 GMT-0500 (Eastern Standard Time
@@ -61,22 +60,20 @@ describe('<HomeScreen />', () => {
   // In the components folder each child has their own specified test
   // ===============================================================
 
-//   test('Should contain a section to get current weather', () => {
-//     (WeatherCurrent as jest.Mock).mockReturnValue(
-//       <View testID='mock-weather-current' />
-//     );
-//     const wrapper = render(<HomeScreen />);
-//     wrapper.getByTestId('mock-weather-current');
-//   });
-//   test('Should contain a section to get weather at given latitude and longitude', () => {
-//     (WeatherCoordinates as jest.Mock).mockReturnValue(
-//       <View testID='mock-weather-coordinates' />
-//     );
-//     const wrapper = render(<HomeScreen />);
-//     wrapper.getByTestId('mock-weather-coordinates');
-//   });
+  test('Should contain a section to get current weather', () => {
+    (WeatherCurrent as jest.Mock).mockReturnValue(
+      <View testID='mock-weather-current' />
+    );
+    const wrapper = render(<HomeScreen />);
+    wrapper.getByTestId('mock-weather-current');
+  });
+  test('Should contain a section to get weather at given latitude and longitude', () => {
+    (WeatherCoordinates as jest.Mock).mockReturnValue(
+      <View testID='mock-weather-coordinates' />
+    );
+    const wrapper = render(<HomeScreen />);
+    wrapper.getByTestId('mock-weather-coordinates');
+  });
   // ===============================================================
   // ===============================================================
-
-
 });

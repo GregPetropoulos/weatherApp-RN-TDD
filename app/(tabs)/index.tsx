@@ -18,15 +18,14 @@ export default function TabHomeScreen() {
         // colors={['rgba(0,0,0,0.8)', 'transparent']}
 
         style={styles.background}>
-          <DateDay/>
+        <DateDay />
         {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
         <View style={styles.weatherLocContent}>
-
-        <WeatherCurrent />
-        <Text testID='home-screen-divider' style={styles.divider}>
-          Or
-        </Text>
-        <WeatherCoordinates />
+          <WeatherCurrent />
+          <Text testID='home-screen-divider' style={styles.divider}>
+            Or
+          </Text>
+          <WeatherCoordinates />
         </View>
       </LinearGradient>
     </View>
@@ -51,11 +50,13 @@ const styles = StyleSheet.create({
     // top: 0,
     // height: 300
   },
- 
-  weatherLocContent:{
-    backgroundColor:'transparent', alignItems:'center', marginTop:10
+
+  weatherLocContent: {
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    marginTop: 10
   },
-  
+
   divider: {
     marginVertical: 25,
     // color:Colors.dark.text,

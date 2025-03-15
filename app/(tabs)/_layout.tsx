@@ -24,31 +24,21 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         // Disable the static render of the header on web
         // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
+        headerShown: useClientOnlyValue(false, true)
         // headerShown: true,
       }}>
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-        
+          tabBarIcon: ({ color }) => <TabBarIcon name='home' color={color} />
         }}
       />
       <Tabs.Screen
-        name="currentWeather"
-      
+        name='weather'
         options={{
-          title: 'Current Weather',
-          // tabBarButtonTestID: 'currentWeatherTab',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-         <Tabs.Screen
-        name="currentLocation"
-        options={{
-          title: 'Current Location',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Weather',
+          tabBarIcon: ({ color }) => <TabBarIcon name='cloud' color={color} />
         }}
       />
     </Tabs>
