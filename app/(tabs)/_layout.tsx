@@ -14,6 +14,9 @@ function TabBarIcon(props: {
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
+// function TabBarIcon(props:any) {
+//   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+// }
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -31,16 +34,14 @@ export default function TabLayout() {
         name='index'
         options={{
           title: 'Home',
-          // TODO fix Icon set fails basic rendering RNTL
-          // tabBarIcon: ({ color }) => <TabBarIcon name='home' color={color} />
+          tabBarIcon: ({ color }) => <TabBarIcon name='home' color={color} />
         }}
       />
       <Tabs.Screen
         name='weather'
         options={{
           title: 'Weather',
-          // TODO Fix Icon set fails basic rendering in RNTL
-          // tabBarIcon: ({ color }) => <TabBarIcon name='cloud' color={color} />
+          tabBarIcon: ({ color }) => <TabBarIcon name='cloud' color={color} />
         }}
       />
     </Tabs>

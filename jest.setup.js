@@ -10,3 +10,5 @@ jest.mock('react-native-reanimated', () => {
 
   return Reanimated;
 });
+
+jest.mock("expo-font")
