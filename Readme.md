@@ -5,6 +5,8 @@
 ### Mocked Native code
 
 - react-native-get-location
+- expo-font
+
 
 ### Packages that need permissions
 
