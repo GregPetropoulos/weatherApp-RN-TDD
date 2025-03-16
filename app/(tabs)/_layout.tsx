@@ -31,14 +31,16 @@ export default function TabLayout() {
         name='index'
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name='home' color={color} />
+          // TODO fix Icon set fails basic rendering RNTL
+          // tabBarIcon: ({ color }) => <TabBarIcon name='home' color={color} />
         }}
       />
       <Tabs.Screen
         name='weather'
         options={{
           title: 'Weather',
-          tabBarIcon: ({ color }) => <TabBarIcon name='cloud' color={color} />
+          // TODO Fix Icon set fails basic rendering in RNTL
+          // tabBarIcon: ({ color }) => <TabBarIcon name='cloud' color={color} />
         }}
       />
     </Tabs>

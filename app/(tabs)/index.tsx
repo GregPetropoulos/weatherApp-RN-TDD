@@ -10,9 +10,11 @@ import DateDay from '@/components/DateDay';
 
 export default function TabHomeScreen() {
   return (
-    <View style={styles.container}>
+    <View style={styles.container}
+    testID='HomeScreen'
+    >
       <LinearGradient
-        testID='HomeScreen'
+        // testID='HomeScreen'
         colors={[Colors.dark.background, Colors.light.background]}
         // colors={['#4c669f', '#3b5998', '#192f6a']}
         // colors={['rgba(0,0,0,0.8)', 'transparent']}

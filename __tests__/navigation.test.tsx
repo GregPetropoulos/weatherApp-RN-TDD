@@ -1,75 +1,46 @@
-import {
-  fireEvent,
-  render,
-  renderRouter,
-  screen,
-  waitFor
-} from 'expo-router/testing-library';
+import { renderRouter, screen, userEvent } from 'expo-router/testing-library';
 
-import { View, Text } from '@/components/Themed';
-import { Link } from 'expo-router';
+import RootLayout from '@/app/_layout';
 import TabLayout from '@/app/(tabs)/_layout';
-import TabHomeScreen from '@/app/(tabs)';
+import TabHomeScreen from '@/app/(tabs)/index';
 import TabWeatherScreen from '@/app/(tabs)/weather';
 
-// MOCKS FOR ROUTES
-// const MockHomeScreen = jest.fn(() => <View><Text>Welcome!</Text></View>);
-// const MockWeatherScreen = jest.fn(() => <View><Text>My Weather Screen</Text></View>);
-
-describe('Static Navigation', () => {
-  it('Initial Home Screen with / pathname', async () => {
+describe('Expo Router Bottom Tabs Navigation', () => {
+  // No Mocking the file system, test directly
+  it('Renders the index tab and user navigates to the weather screen and back to home screen', async () => {
     renderRouter(
       {
-        // Notice the pathname for the tabs layout? possible bug can use variations of _layout
-        //'(tabs)/_layout/': () => <TabLayout />,
-
-        '/app/_layout/(tabs)/_layout/': () => <TabLayout />,
-        '(tabs)/': () => <TabHomeScreen />,
+        '/apps/_layout': () => <RootLayout />,
+        '(tabs)/_layout': () => <TabLayout />,
+        '(tabs)/index': () => <TabHomeScreen />,
         '(tabs)/weather': () => <TabWeatherScreen />
       },
       {
         initialUrl: '/'
       }
     );
-    expect(await screen.getByText('Welcome!')).toBeOnTheScreen();
-    expect(await screen.findByTestId('DateDayComponent'));
-    expect(await screen.findByTestId('WeatherCurrentComponent'));
-    expect(await screen.findByTestId('WeatherCoordinatesComponent'));
+    // Sanity check testId, Text content, pathname on initial screen
+    expect(screen.getByTestId('HomeScreen')).toBeTruthy();
+    expect(screen.getByText('Welcome!')).toBeOnTheScreen();
+    expect(screen.getByTestId('DateDayComponent')).toBeTruthy();
+    expect(screen.getByTestId('WeatherCurrentComponent')).toBeTruthy();
+    expect(screen.getByTestId('WeatherCoordinatesComponent')).toBeTruthy();
     expect(screen).toHavePathname('/');
-  });
 
-  it('Weather Tab Navigation has weather pathname', async () => {
-    renderRouter(
-      {
-        'app/_layout': () => <TabLayout />,
-        // 'app/_layout/(tabs)/_layout': () => <TabLayout />,
-        '(tabs)/': () => <TabHomeScreen />,
-        '(tabs)/weather': () => <TabWeatherScreen />
-      },
-      {
-        initialUrl: '(tabs)/weather'
-      }
-    );
-
-    expect(await screen.getByText('My Weather Screen')).toBeOnTheScreen();
-    expect(await screen.getByTestId('WeatherScreen'));
+    // User Tab Navigates to weather screen
+    // Check testId, Text content, pathname on weather screen
+    const user = userEvent.setup();
+    await user.press(screen.getByText('Weather'));
     expect(screen).toHavePathname('/weather');
+    expect(screen.getByTestId('WeatherScreen')).toBeTruthy();
+    expect(screen.getByText('My Weather Screen')).toBeOnTheScreen();
+
+    // User Tab Navigates to back to home screen
+    // Check testId, Text content, pathname on weather screen
+    await user.press(screen.getByText('Home'))
+    expect(screen).toHavePathname('/');
+    expect(screen.getByText('Welcome!')).toBeOnTheScreen();
+
+
   });
 });
-
-//!Work for links not tabs
-// describe('Navigation', () => {
-//   it('navigates to current weather screen', () => {
-//     renderRouter({
-//       index: () => (
-//         <View>
-//           <Text>Home</Text>
-//           <Link href='/currentWeather'>Check Current Weather</Link>
-//         </View>
-//       ),
-//       currentWeather: () => <Text>Current Weather</Text>
-//     });
-//     fireEvent.press(screen.getByText('Check Current Weather'));
-//     expect(screen.getByText('Current Weather')).toBeOnTheScreen();
-//   });
-// });
