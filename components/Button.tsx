@@ -16,7 +16,7 @@ type Props = {
 const Button = (props: Props) => {
   const { onPress, label, loading, style, ...rest } = props;
   return (
-    <Pressable onPress={props.onPress} testID='button'>
+    <Pressable onPress={onPress} testID='button'>
       <LinearGradient
         {...rest}
         colors={[Colors.general.lighterGray, Colors.general.darkGray]}

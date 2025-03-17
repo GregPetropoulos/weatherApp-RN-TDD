@@ -17,10 +17,12 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.gregpetropoulosdev.weatherapp",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSLocationWhenInUseUsageDescription":"This app needs to get your location for the weather info"
       }
     },
     "android": {
+        "permissions": ["android.permission.ACCESS_FINE_LOCATION" ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"

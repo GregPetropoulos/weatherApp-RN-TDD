@@ -8,7 +8,7 @@ class LocationService {
   //asynchronous method to return the users method
   static async getCurrentPosition() {
     // return Promise.reject()
-    return GetLocation.getCurrentPosition({
+    return await GetLocation.getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 15000
     }).then(({ latitude, longitude }) => ({ latitude, longitude }));
