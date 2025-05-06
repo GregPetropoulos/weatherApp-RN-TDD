@@ -20,6 +20,21 @@ https://www.npmjs.com/package/react-native-get-location
 - `eas build --profile development-simulator --platform android`
 - `eas build:run` to get build already in EAS, choose one
 
+**RN Troubleshooting**
+#### Clear the cache
+- rm -rf node_modules
+- npm cache clean --force
+- npm install
+- watchman watch-del-all
+- del %localappdata%Temphaste-map-*
+- del %localappdata%Tempmetro-cache
+- npx expo start --clear
+
+#### Wipe/Erase Simulator Data
+- Remove data from simulator
+- eas build:run
+- npm start 
+
 **Test Jest troubleshooting**
 
 - `npx jest --clearCache`
@@ -30,6 +45,7 @@ https://www.npmjs.com/package/react-native-get-location
 
 **Running Test**
 - `npm run test`
+
 **3rd Party libs**
 
 - `npx expo install react-native-gesture-handler`

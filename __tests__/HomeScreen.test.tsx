@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react-native';
 
 // import HomeScreen, { CustomText } from '@/app/index';
-import HomeScreen from '@/app/(tabs)';
+import HomeScreen from '@/app/(drawer)/(tabs)';
 import WeatherCoordinates from '@/components/WeatherCoordinates';
 import WeatherCurrent from '@/components/WeatherCurrent';
 import { View } from '@/components/Themed';

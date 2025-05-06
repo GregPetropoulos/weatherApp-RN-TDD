@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react-native';
-import WeatherScreen from '@/app/(tabs)/weather';
+import WeatherScreen from '@/app/(drawer)/(tabs)/weather';
 
 describe(' Weather Screen', () => {
   test('Should render correctly', () => {

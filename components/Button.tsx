@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import { Button as RNButton } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import {
   StyleSheet,
@@ -8,30 +9,19 @@ import {
 } from 'react-native';
 import { View, Text } from './Themed';
 import Colors from '@/constants/Colors';
+import { DIRECTIONS } from '@/constants/global';
 type Props = {
   label: string;
   onPress: () => void;
   loading?: boolean;
+  icon?: ReactNode;
+  iconPosition?: string;
 } & ViewProps;
+
 const Button = (props: Props) => {
-  const { onPress, label, loading, style, ...rest } = props;
+  const { onPress, label, loading, style, icon, iconPosition, ...rest } = props;
   return (
-    <Pressable onPress={onPress} testID='button'>
-      <LinearGradient
-        {...rest}
-        colors={[Colors.general.lighterGray, Colors.general.darkGray]}
-        style={[styles.container, style]}>
-        {loading ? (
-          <ActivityIndicator
-            testID='button-loading'
-            size={24}
-            color={Colors.general.white}
-          />
-        ) : (
-          <Text style={styles.label}>{label}</Text>
-        )}
-      </LinearGradient>
-    </Pressable>
+ <RNButton title={label} accessibilityLabel={label} onPress={onPress}/>
   );
 };
 
@@ -46,7 +36,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   label: {
-    fontSize: 19,
-    color: Colors.general.white
+    fontSize: 19
+    // color: Colors.general.white
   }
 });
+// {iconPosition === DIRECTIONS.LEFT && icon ? icon : null}
+// <RNButton title={label} accessibilityLabel={label} onPress={onPress}/>
+// {iconPosition === DIRECTIONS.RIGHT && icon ? icon : null}

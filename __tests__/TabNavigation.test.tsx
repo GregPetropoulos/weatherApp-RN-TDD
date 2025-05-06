@@ -1,9 +1,9 @@
 import { renderRouter, screen, userEvent } from 'expo-router/testing-library';
 
 import RootLayout from '@/app/_layout';
-import TabLayout from '@/app/(tabs)/_layout';
-import TabHomeScreen from '@/app/(tabs)/index';
-import TabWeatherScreen from '@/app/(tabs)/weather';
+import TabLayout from '@/app/(drawer)/(tabs)/_layout';
+import TabHomeScreen from '@/app/(drawer)/(tabs)/index';
+import TabWeatherScreen from '@/app/(drawer)/(tabs)/weather';
 
 describe('Expo Router Bottom Tabs Navigation', () => {
   // No Mocking the file system, test directly
@@ -37,10 +37,8 @@ describe('Expo Router Bottom Tabs Navigation', () => {
 
     // User Tab Navigates to back to home screen
     // Check testId, Text content, pathname on weather screen
-    await user.press(screen.getByText('Home'))
+    await user.press(screen.getByText('Home'));
     expect(screen).toHavePathname('/');
     expect(screen.getByText('Welcome!')).toBeOnTheScreen();
-
-
   });
 });
