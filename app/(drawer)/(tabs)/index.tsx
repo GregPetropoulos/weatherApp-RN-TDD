@@ -1,9 +1,6 @@
-import { StyleSheet, Button as RNButton } from 'react-native';
+import { StyleSheet, Button as RNButton, Text, View } from 'react-native';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
 import { LinearGradient } from 'expo-linear-gradient';
-// import Colors from '@/constants/Colors';
 import WeatherCoordinates from '@/components/WeatherCoordinates';
 import WeatherCurrent from '@/components/WeatherCurrent';
 import DateDay from '@/components/DateDay';
@@ -11,41 +8,53 @@ import Button from '@/components/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DIRECTIONS } from '@/constants/global';
 import IconButton from '@/components/IconButton';
-
+import LocationService from '@/services/LocationService';
+// TODO MAKE FETCH CALL TO WEATHER API WTIH COORDS
+// TODO SET USER LOCATION GLOBAL STATE ZUSTAND
+// TODO USE EXPO LOCATION
 const UknownLocationHomeScreen = () => {
+  const handleFetchPosition = async () => {
+    //todo once you get the cordinates set the users added location
+    const position = await LocationService.getCurrentPosition();
+    console.log('POSITION', position);
+    return position;
+  };
   return (
-    <View style={{ 
-      flex: 1,
-      borderColor:'purple',
-      borderWidth:2, 
-      //TODO add in primary background color
-      // alignItems:'flex-start',
-      //  justifyContent:'center',
-       flexDirection: 'row' 
-       }}>
+    <View
+      style={{
+        flex: 1,
+        borderColor: 'purple',
+        borderWidth: 2,
+        //TODO add in primary background color
+        // alignItems:'flex-start',
+        //  justifyContent:'center',
+        flexDirection: 'row'
+      }}>
       {/* <View style={{ flex: 0.5 }}> */}
-        <IconButton
-          name='plus'
-          size={28}
-          // titleStyle={{color:'yellow'}}
-          // color={'red'}
-          label={'Add Location'}
-          onPress={()=> console.log('IconButton pressed')}
-        />
+      <IconButton
+        name='plus'
+        iconName='MaterialCommunityIcons'
+        size={28}
+        // titleStyle={{color:'yellow'}}
+        // color={'red'}
+        label={'Add Location'}
+        onPress={handleFetchPosition}
+      />
       {/* </View> */}
       {/* <View style={{ flex: 0.5 }}> */}
-        <IconButton
-          name='map'
-          size={28}
-          label={'Map'}
-          onPress={()=> console.log('IconButton MAP pressed')}
-        />
+      <IconButton
+        name='map'
+        iconName='MaterialCommunityIcons'
+        size={28}
+        label={'Map'}
+        onPress={() => console.log('IconButton MAP pressed')}
+      />
       {/* </View> */}
     </View>
   );
 };
 export default function TabHomeScreen() {
-  const isUserLocation = false;
+  const isUserLocation = false; // Make this a global state
   return (
     <>
       {isUserLocation ? (

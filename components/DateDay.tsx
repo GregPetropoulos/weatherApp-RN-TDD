@@ -1,8 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { Text, View } from '@/components/Themed';
+import { StyleSheet, View, Text } from 'react-native';
 import React from 'react';
 import moment from 'moment';
-import Colors from '@/constants/Colors';
 
 const DateDay = () => {
   const now = moment(new Date());
@@ -27,12 +25,12 @@ const styles = StyleSheet.create({
   },
   date: {
     fontSize: 14,
-    color: Colors.dark.text,
+    // color: Colors.dark.text,
     marginVertical: 5
   },
   day: {
     fontSize: 36,
-    color: Colors.dark.text,
+    // color: Colors.dark.text,
     marginVertical: 5
   },
   title: {

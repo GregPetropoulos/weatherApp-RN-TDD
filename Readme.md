@@ -52,3 +52,19 @@ https://www.npmjs.com/package/react-native-get-location
 - `npm i -S react-native-get-location`
 - `npm install moment --save`
 - `npx expo install expo-linear-gradient`
+
+## Features
+### Navigation
+  - Drawer
+  - Bottom Tabs
+  ### User
+  - Settings
+  - Add Default Location
+  - Add Additional Location
+  
+  ### Multiple Theme Support
+  - Light
+  - Dark
+  - Blue
+  - Green
+  

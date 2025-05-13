@@ -1,39 +1,29 @@
 import { Drawer } from 'expo-router/drawer';
-import { StyleSheet, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { usePathname, useSegments } from 'expo-router';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Link, usePathname, useSegments } from 'expo-router';
 import { useTheme } from '@react-navigation/native';
-
+//TODO THE HEADER CITY NAME SHOULD COME FROM GLOBAL STATE
+//TODO EACH ADDED CITY LOCATION IS A DYNAMIC SCREEN 
+import DrawerContent from '@/components/DrawerContent';
 export default function DrawerLayout() {
-  const {colors}= useTheme()
-  const insets = useSafeAreaInsets();
+  const { colors } = useTheme();
   const pathname = usePathname();
   const segments = useSegments();
   console.log('SEGMENTS', segments);
   console.log(' const pathname = usePathname();', pathname);
   return (
     <Drawer
-      drawerContent={() => {
-        return (
-          <View
-            style={{
-              paddingTop: insets.top,
-              paddingBottom: insets.bottom,
-              padding: 24,
-              gap: 16
-            }}>
-            <Text style={styles.text}>Hello from the drawer 👋</Text>
-          </View>
-        );
-      }}
-      //! STOPPED HERE WITH HEADER
+      drawerContent={() => <DrawerContent />}
       screenOptions={{
         drawerType: 'slide',
+        // Location name of city
+        // date and time ex: Tue 09:31 AM
         headerTitle(props) {
           return (
             <Text style={{ color: props.tintColor }}>
-              test {props.children}{' '}
+              city name {props.children}{' '}
             </Text>
           );
         },
@@ -49,10 +39,10 @@ export default function DrawerLayout() {
         drawerStyle: {
           backgroundColor: colors.card,
           borderRightColor: colors.border,
-          borderRightWidth: 1,
+          borderRightWidth: 1
         },
         drawerActiveTintColor: colors.primary,
-        drawerInactiveTintColor: colors.text,
+        drawerInactiveTintColor: colors.text
         // drawerIcon(props) {
         //     return  <MaterialCommunityIcons name="menu" size={24} color="black" />
         // },
@@ -61,15 +51,26 @@ export default function DrawerLayout() {
         //     return <Text>{props.route.name}</Text>
         // },
       }}>
-      <Drawer.Screen name='(tabs)' options={{ headerShown: true }} />
-      <Drawer.Screen name='settings' options={{ headerShown: false }} />
+      <Drawer.Screen
+        name='(tabs)' // TODO WIP Show the route name in header not tabs
+        options={{
+          // drawerLabel: 'tabtest',
+          // title: 'Tabssss',
+          headerShown: true
+        }}
+      />
     </Drawer>
   );
 }
 
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 18,
-    lineHeight: 30
-  }
-});
+// const styles = StyleSheet.create({
+//   text: {
+//     fontSize: 24,
+//     lineHeight: 30
+//   },
+//   drawerIconLabel: {
+//     fontSize: 16,
+//     fontWeight: 500,
+//     marginLeft: 5
+//   }
+// });

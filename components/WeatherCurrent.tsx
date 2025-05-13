@@ -1,9 +1,9 @@
 import React,{useCallback} from 'react';
-import { View, Text } from './Themed';
+
 import { useNavigation, Link } from 'expo-router';
 import LocationService from '@/services/LocationService';
 import Button from './Button';
-import { Pressable } from 'react-native';
+import { Pressable, View, Text } from 'react-native';
 const WeatherCurrent = () => {
   const navigation:any = useNavigation()
   const handleFetch = async ()=>{

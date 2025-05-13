@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const DrawerContent = () => {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
-
+//TODO ADD IN LOCATION
   return (
     <View
       style={{
@@ -20,8 +20,6 @@ const DrawerContent = () => {
         padding: 24,
         gap: 16,
         flex: 1,
-        borderColor: 'red',
-        borderWidth: 1,
         backgroundColor: colors.background
       }}>
       <Text style={{ ...styles.text, color: colors.text }}>Weather App</Text>

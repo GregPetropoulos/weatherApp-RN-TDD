@@ -5,10 +5,9 @@ import {
   StyleSheet,
   Pressable,
   ViewProps,
-  ActivityIndicator
+  ActivityIndicator,
+  View, Text
 } from 'react-native';
-import { View, Text } from './Themed';
-import Colors from '@/constants/Colors';
 import { DIRECTIONS } from '@/constants/global';
 type Props = {
   label: string;
@@ -37,9 +36,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 19
-    // color: Colors.general.white
+
   }
 });
-// {iconPosition === DIRECTIONS.LEFT && icon ? icon : null}
-// <RNButton title={label} accessibilityLabel={label} onPress={onPress}/>
-// {iconPosition === DIRECTIONS.RIGHT && icon ? icon : null}

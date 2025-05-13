@@ -1,20 +1,16 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import {ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
+import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
 import { ThemeProvider, useCustomTheme } from '@/context/ThemeContext';
-
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useFonts } from 'expo-font';
-import { Slot, Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 // https://reactnavigation.org/docs/drawer-navigator#installation
-//import '../components/gesture-handler'; // For web to only see empty gesture handler 
+//import '../components/gesture-handler'; // For web to only see empty gesture handler
 
-import {
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
-import { useColorScheme } from '@/components/useColorScheme';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
@@ -52,31 +48,47 @@ export default function RootLayout() {
     return null;
   }
 
-  return <ThemeProvider>
-    <RootLayoutNav />;
+  return (
+    <ThemeProvider>
+      <RootLayoutNav />
     </ThemeProvider>
+  );
 }
-
-
 
 function RootLayoutNav() {
   const { theme } = useCustomTheme();
-  const colorScheme = useColorScheme();
-  const insets = useSafeAreaInsets();
+  const router = useRouter();
+  const handleGoBack = () => {
+    router.push('/');
+  };
+
   return (
     <NavigationThemeProvider value={theme}>
-    <GestureHandlerRootView style={{ flex: 1 }}>
-    {/* <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}> */}
-      <SafeAreaView style={{ flex: 1 }}>
-        {/* <DrawerLayout/> */}
-        <Stack>
-          <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-        </Stack>
-        {/* <Slot /> */}
-      </SafeAreaView>
-    {/* </ThemeProvider> */}
-    </GestureHandlerRootView>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <Stack>
+            <Stack.Screen name='(drawer)' options={{ headerShown: false }} />
+            <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
+            <Stack.Screen
+              name='settings'
+              options={{
+                headerShown: true,
+                headerBackButtonDisplayMode: 'minimal',
+                headerLeft(props) {
+                  return (
+                    <MaterialIcons
+                      name='arrow-back'
+                      size={24}
+                      color={props.tintColor}
+                      onPress={handleGoBack}
+                    />
+                  );
+                }
+              }}
+            />
+          </Stack>
+        </SafeAreaView>
+      </GestureHandlerRootView>
     </NavigationThemeProvider>
   );
 }
