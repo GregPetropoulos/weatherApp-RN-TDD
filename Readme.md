@@ -23,6 +23,9 @@
 
 https://www.npmjs.com/package/react-native-get-location
 
+## Updates
+- eas update:configure
+
 ## Useful Commands
 
 **Simulator/Emulator Builds**
@@ -87,3 +90,4 @@ https://www.npmjs.com/package/react-native-get-location
 
 - National Oceanic and Atmospheric Administration
   - https://weather-gov.github.io/api/general-faqs
+  - https://api.weather.gov/points/{lat},{lon}
