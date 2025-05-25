@@ -28,6 +28,8 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  // TODO WILL NEED TO CHECK THE DEFAULT LOCATION IS SET IN ASYNC STORAGE
+  // TODO IF SET THEN UPDATE GLOBAL STATE TO HANDLE ANY FURTHER CHANGES TO CRUD LOCATIONS
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font

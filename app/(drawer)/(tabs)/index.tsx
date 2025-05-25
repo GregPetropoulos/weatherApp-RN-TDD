@@ -8,17 +8,31 @@ import Button from '@/components/Button';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { DIRECTIONS } from '@/constants/global';
 import IconButton from '@/components/IconButton';
-import LocationService from '@/services/LocationService';
+// import LocationService from '@/services/LocationService';
+import useDeviceLocation from '@/hooks/useDeviceLocation';
 // TODO MAKE FETCH CALL TO WEATHER API WTIH COORDS
 // TODO SET USER LOCATION GLOBAL STATE ZUSTAND
 // TODO USE EXPO LOCATION
 const UknownLocationHomeScreen = () => {
-  const handleFetchPosition = async () => {
-    //todo once you get the cordinates set the users added location
-    const position = await LocationService.getCurrentPosition();
-    console.log('POSITION', position);
-    return position;
-  };
+  const { location, errorMsg, isLoading, getLocation, watchLocation } = useDeviceLocation();
+  // const handleFetchPosition = async () => {
+  //   //todo once you get the cordinates set the users added location
+  //   const position = await LocationService.getCurrentPosition();
+  //   console.log('POSITION', position);
+  //   return position;
+  // };
+  
+   if (isLoading) {
+    return <Text>Loading location...</Text>;
+  }
+
+  if (errorMsg) {
+    return <Text>Error: {errorMsg}</Text>;
+  }
+  // console.log('isLoading',isLoading)
+  // console.log("location", location)
+  // console.log('ERRORMSG',errorMsg)
+
   return (
     <View
       style={{
@@ -38,7 +52,7 @@ const UknownLocationHomeScreen = () => {
         // titleStyle={{color:'yellow'}}
         // color={'red'}
         label={'Add Location'}
-        onPress={handleFetchPosition}
+        // onPress={handleFetchPosition}
       />
       {/* </View> */}
       {/* <View style={{ flex: 0.5 }}> */}
@@ -50,6 +64,17 @@ const UknownLocationHomeScreen = () => {
         onPress={() => console.log('IconButton MAP pressed')}
       />
       {/* </View> */}
+       <View>
+      {location ? (
+        <Text>
+          Weather for: Latitude {location.latitude}, Longitude {location.longitude}
+        </Text>
+      ) : (
+        <Text>No location data</Text>
+      )}
+      <Button label="Refresh Location" onPress={getLocation} />
+      <Text>Current Location from Store: {JSON.stringify(location)}</Text>
+    </View>
     </View>
   );
 };

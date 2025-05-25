@@ -10,6 +10,7 @@ const OWNER = 'gregpetropoulosdev';
 // WeatherApp PROD config
 // ========================
 const APP_NAME = 'Weather App';
+const PRODUCT_NAME = 'Weather App';
 const BUNDLE_IDENTIFIER = 'com.gregpetropoulosdev.weatherapp';
 const PACKAGE_NAME = 'com.gregpetropoulosdev.weatherapp';
 const ICON = './assets/images/icons/iOS-Prod.png';
@@ -36,7 +37,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     scheme: scheme,
     ios: {
       supportsTablet: true,
-      bundleIdentifier: bundleIdentifier
+      bundleIdentifier: bundleIdentifier,
+       infoPlist: {
+        NSLocationWhenInUseUsageDescription: "This app needs access to your location",
+        NSLocationAlwaysAndWhenInUseUsageDescription: "This app needs access to your location",
+          UIBackgroundModes: [
+          "location"
+        ]
+      }
     },
     android: {
       adaptiveIcon: {
@@ -67,7 +75,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         'expo-location',
         {
           locationAlwaysAndWhenInUsePermission:
-            'Allow Weather App to use your location.'
+            `Allow ${PRODUCT_NAME} to use your location.`
         }
       ],
       [
