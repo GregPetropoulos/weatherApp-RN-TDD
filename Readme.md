@@ -61,6 +61,8 @@ https://www.npmjs.com/package/react-native-get-location
 - `npm install dotenv`
 - `npx expo install expo-constants`
 - `npx expo install expo-location`
+- `npm i axios`
+- `npm expo install mobx-react-lite  mobx-state-tree   `
 
 #### Environment
 
@@ -86,6 +88,20 @@ https://www.npmjs.com/package/react-native-get-location
 - Blue
 - Green
 
+
+
+
+## State Management
+- Mobx State Tree
+- Mobx -lite
+- https://mobx-state-tree.js.org/intro/welcome
+
+## Persistence
+- Async storage
+
+## Services
+- weather api
+- use axios https://axios-http.com/docs/intro
 ## Weather API
 
 - National Oceanic and Atmospheric Administration

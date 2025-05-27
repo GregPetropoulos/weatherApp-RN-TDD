@@ -1,4 +1,10 @@
-import { StyleSheet, Button as RNButton, Text, View } from 'react-native';
+import {
+  StyleSheet,
+  Button as RNButton,
+  Text,
+  View,
+  ActivityIndicator
+} from 'react-native';
 
 import { LinearGradient } from 'expo-linear-gradient';
 import WeatherCoordinates from '@/components/WeatherCoordinates';
@@ -10,29 +16,56 @@ import { DIRECTIONS } from '@/constants/global';
 import IconButton from '@/components/IconButton';
 // import LocationService from '@/services/LocationService';
 import useDeviceLocation from '@/hooks/useDeviceLocation';
-// TODO MAKE FETCH CALL TO WEATHER API WTIH COORDS
-// TODO SET USER LOCATION GLOBAL STATE ZUSTAND
-// TODO USE EXPO LOCATION
+import { getWeatherLocation } from '@/services/weather';
+import { useCallback } from 'react';
+
 const UknownLocationHomeScreen = () => {
-  const { location, errorMsg, isLoading, getLocation, watchLocation } = useDeviceLocation();
-  // const handleFetchPosition = async () => {
-  //   //todo once you get the cordinates set the users added location
-  //   const position = await LocationService.getCurrentPosition();
-  //   console.log('POSITION', position);
-  //   return position;
-  // };
-  
-   if (isLoading) {
-    return <Text>Loading location...</Text>;
+  const { location, errorMsg, isLoading, getLocation, watchLocation } =
+    useDeviceLocation();
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center' }}>
+        <ActivityIndicator size={'large'} color={'blue'} />
+      </View>
+    );
   }
 
   if (errorMsg) {
-    return <Text>Error: {errorMsg}</Text>;
+    return (
+      <View style={{ flex: 1, alignItems: 'center' }}>
+        <Text>Error: {errorMsg ?? 'There was an unknown error'}</Text>
+      </View>
+    );
   }
-  // console.log('isLoading',isLoading)
-  // console.log("location", location)
-  // console.log('ERRORMSG',errorMsg)
 
+  //! AFTER THIS IS IMPLEMENTED THEN MOBXSTATETREE AND ASYNC STORAGE NEXT
+  // !AFTER THAT BUILD OUT UI
+  //! BUILD UX FOR ADD MORE THAN ONE LOCATION
+  const handleWeatherFetch = async () => {
+    const {
+      city,
+      county,
+      id,
+      state,
+      type,
+      geometry,
+      forecast12HourPeriods7Days,
+      forecastHourly7days,
+      timeZone,
+      radarStation
+    } = await getWeatherLocation(location?.latitude, location?.longitude);
+    console.log(
+      'weatherData',
+      city,
+      county,
+      type,
+      geometry.type,
+      geometry.coordinates,
+      timeZone,
+      radarStation
+    );
+  };
   return (
     <View
       style={{
@@ -64,17 +97,22 @@ const UknownLocationHomeScreen = () => {
         onPress={() => console.log('IconButton MAP pressed')}
       />
       {/* </View> */}
-       <View>
-      {location ? (
-        <Text>
-          Weather for: Latitude {location.latitude}, Longitude {location.longitude}
-        </Text>
-      ) : (
-        <Text>No location data</Text>
-      )}
-      <Button label="Refresh Location" onPress={getLocation} />
-      <Text>Current Location from Store: {JSON.stringify(location)}</Text>
-    </View>
+      <View>
+        {location ? (
+          <Text>
+            Weather for: Latitude {location.latitude}, Longitude{' '}
+            {location.longitude}
+          </Text>
+        ) : (
+          <Text>No location data</Text>
+        )}
+        <Button label='Refresh Location' onPress={getLocation} />
+        <Text>Current Location from Store: {JSON.stringify(location)}</Text>
+        <Button
+          label='get weather for default location'
+          onPress={handleWeatherFetch}
+        />
+      </View>
     </View>
   );
 };

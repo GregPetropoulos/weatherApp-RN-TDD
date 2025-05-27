@@ -15,6 +15,7 @@
     "@react-navigation/drawer": "^7.3.11",
     "@react-navigation/elements": "^2.4.1",
     "@react-navigation/native": "^7.0.14",
+    "axios": "^1.9.0",
     "dotenv": "^16.5.0",
     "expo": "~52.0.35",
     "expo-constants": "~17.0.8",
