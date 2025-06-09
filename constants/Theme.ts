@@ -47,5 +47,3 @@ export const CustomThemes = {
     },
   },
 };
-
-export type ThemeType = keyof typeof CustomThemes;
