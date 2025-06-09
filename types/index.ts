@@ -1,3 +1,14 @@
+import { CustomThemes } from '@/constants/Theme';
+
+import { Theme } from '@react-navigation/native';
+
+export type IconsTypes = {
+  MATERIAL_COMMUNITY_ICONS: string;
+  MATERIAL_ICONS: string;
+  FONT_AWESOME: string;
+  BASE_SIZE: number;
+};
+
 type Geometry = {
   type: string | null;
   coordinates: number[] | null; //in order long lat reversed from normal lat long
@@ -65,4 +76,28 @@ export interface WeatherDataResponse {
   id: string | null;
   type: string | null;
   geometry: Geometry;
+}
+// ====================NEW============
+export interface WeatherData {
+  name: string; // City name from geocoding
+  temperature: number; // Current period temperature
+  shortForecast: string; // Short description (e.g., "Sunny")
+  detailedForecast: string; // Detailed description
+  humidity?: number; // Relative humidity (if available)
+  windSpeed?: string; // Wind speed (e.g., "10 mph")
+}
+
+export interface Location {
+  id: string;
+  name: string;
+  lat: number;
+  lon: number;
+}
+// THEME
+export type ThemeType = keyof typeof CustomThemes;
+export type NavigationNativeTheme = Theme;
+export interface ThemeContextType {
+  theme: Theme;
+  themeType: ThemeType;
+  setTheme: (themeType: ThemeType) => void;
 }
