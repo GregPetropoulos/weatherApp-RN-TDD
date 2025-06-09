@@ -1,19 +1,15 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Theme } from '@react-navigation/native';
-import { CustomThemes, ThemeType } from '../constants/Theme';
-
-interface ThemeContextType {
-  theme: Theme;
-  themeType: ThemeType;
-  setTheme: (themeType: ThemeType) => void;
-}
+import { CustomThemes } from '../constants/Theme';
+import { ThemeContextType, ThemeType, NavigationNativeTheme } from '@/types';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [themeType, setThemeType] = useState<ThemeType>('light');
-  const [theme, setThemeState] = useState<Theme>(CustomThemes.light);
+  const [theme, setThemeState] = useState<NavigationNativeTheme>(
+    CustomThemes.light
+  );
 
   useEffect(() => {
     // Load saved theme from AsyncStorage
@@ -31,6 +27,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     loadTheme();
   }, []);
 
+
+  // For setting themes
   const setTheme = async (newTheme: ThemeType) => {
     try {
       await AsyncStorage.setItem('theme', newTheme);
