@@ -1,5 +1,4 @@
 import { CustomThemes } from '@/constants/Theme';
-
 import { Theme } from '@react-navigation/native';
 
 export type IconsTypes = {
@@ -8,7 +7,14 @@ export type IconsTypes = {
   FONT_AWESOME: string;
   BASE_SIZE: number;
 };
-
+export type Directions = {
+  LEFT: string;
+  RIGHT: string;
+  UP: string;
+  DOWN: string;
+  IN: string;
+  OUT: string;
+};
 type Geometry = {
   type: string | null;
   coordinates: number[] | null; //in order long lat reversed from normal lat long
@@ -93,7 +99,8 @@ export interface Location {
   lat: number;
   lon: number;
 }
-// THEME
+
+// THEME TYPES
 export type ThemeType = keyof typeof CustomThemes;
 export type NavigationNativeTheme = Theme;
 export interface ThemeContextType {

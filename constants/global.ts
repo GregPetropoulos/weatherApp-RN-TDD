@@ -1,4 +1,6 @@
-export const DIRECTIONS = {
+import { Directions } from '@/types';
+
+export const DIRECTIONS: Directions = {
   LEFT: 'left',
   RIGHT: 'right',
   UP: 'up',
@@ -6,4 +8,3 @@ export const DIRECTIONS = {
   IN: 'in',
   OUT: 'out'
 } as const;
-
