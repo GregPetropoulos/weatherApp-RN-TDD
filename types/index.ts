@@ -15,6 +15,17 @@ export type Directions = {
   IN: string;
   OUT: string;
 };
+
+// THEME TYPES
+export type ThemeType = keyof typeof CustomThemes;
+export type NavigationNativeTheme = Theme;
+export interface ThemeContextType {
+  theme: Theme;
+  themeType: ThemeType;
+  setTheme: (themeType: ThemeType) => void;
+}
+
+// ============1st Attempt to weather api======================
 type Geometry = {
   type: string | null;
   coordinates: number[] | null; //in order long lat reversed from normal lat long
@@ -83,14 +94,22 @@ export interface WeatherDataResponse {
   type: string | null;
   geometry: Geometry;
 }
-// ====================NEW============
+// ============ End 1st Attempt to weather api======================
+
+// ============2nd Attempt to weather api======================
+// export interface WeatherData {
+//   name: string; // City name from geocoding
+//   temperature: number; // Current period temperature
+//   shortForecast: string; // Short description (e.g., "Sunny")
+//   detailedForecast: string; // Detailed description
+//   humidity?: number; // Relative humidity (if available)
+//   windSpeed?: string; // Wind speed (e.g., "10 mph")
+// }
 export interface WeatherData {
-  name: string; // City name from geocoding
-  temperature: number; // Current period temperature
-  shortForecast: string; // Short description (e.g., "Sunny")
-  detailedForecast: string; // Detailed description
-  humidity?: number; // Relative humidity (if available)
-  windSpeed?: string; // Wind speed (e.g., "10 mph")
+  name: string;
+  main: { temp: number; humidity: number };
+  weather: { description: string; icon: string }[];
+  wind: { speed: number };
 }
 
 export interface Location {
@@ -100,11 +119,13 @@ export interface Location {
   lon: number;
 }
 
-// THEME TYPES
-export type ThemeType = keyof typeof CustomThemes;
-export type NavigationNativeTheme = Theme;
-export interface ThemeContextType {
-  theme: Theme;
-  themeType: ThemeType;
-  setTheme: (themeType: ThemeType) => void;
+export interface AppContextType {
+  locations: Location[];
+  addLocation: (location: Location) => void;
+  removeLocation: (id: string) => void;
+  defaultLocation: Location | null;
+  setDefaultLocation: (location: Location) => void;
 }
+
+
+// ============End 2nd Attempt to weather api======================
