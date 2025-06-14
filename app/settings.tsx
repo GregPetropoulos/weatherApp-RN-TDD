@@ -3,12 +3,13 @@
 
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@react-navigation/native';
-import { useCustomTheme } from '@/context/ThemeContext';
-import { ThemeType } from '@/constants/Theme';
+import { useCustomThemeCtx } from '@/context/ThemeContext';
+// import { ThemeType } from '@/constants/Theme';
+import { ThemeType } from '@/types';
 
 export default function SettingsScreen() {
   const { colors } = useTheme();
-  const { themeType, setTheme } = useCustomTheme();
+  const { themeType, setTheme } = useCustomThemeCtx();
 
   const themes: ThemeType[] = ['light', 'dark', 'blue', 'green'];
 
