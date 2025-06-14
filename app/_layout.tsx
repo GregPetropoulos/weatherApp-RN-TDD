@@ -1,6 +1,7 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { ThemeProvider as NavigationThemeProvider } from '@react-navigation/native';
-import { ThemeProvider, useCustomTheme } from '@/context/ThemeContext';
+import { ThemeProvider, useCustomThemeCtx } from '@/context/ThemeContext';
+import { LocationProvider } from '@/context/LocationContext';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useFonts } from 'expo-font';
 import { Stack, useRouter } from 'expo-router';
@@ -28,8 +29,6 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  // TODO WILL NEED TO CHECK THE DEFAULT LOCATION IS SET IN ASYNC STORAGE
-  // TODO IF SET THEN UPDATE GLOBAL STATE TO HANDLE ANY FURTHER CHANGES TO CRUD LOCATIONS
   const [loaded, error] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font
@@ -52,13 +51,15 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider>
-      <RootLayoutNav />
+      <LocationProvider>
+        <RootLayoutNav />
+      </LocationProvider>
     </ThemeProvider>
   );
 }
 
 function RootLayoutNav() {
-  const { theme } = useCustomTheme();
+  const { theme } = useCustomThemeCtx();
   const router = useRouter();
   const handleGoBack = () => {
     router.push('/');
