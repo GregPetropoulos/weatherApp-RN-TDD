@@ -1,25 +1,33 @@
-
 // hooks/useLocation.js
 import { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
-import { useForegroundPermissions, useBackgroundPermissions } from 'expo-location';
-type LocationState ={
-  latitude:number;
+import {
+  useForegroundPermissions,
+  useBackgroundPermissions
+} from 'expo-location';
+type LocationState = {
+  latitude: number;
   longitude: number;
   latitudeDelta: number;
-  longitudeDelta:number;
-
-}
+  longitudeDelta: number;
+};
 const useDeviceLocation = () => {
-  const [location, setLocation] = useState<LocationState| null>(null);
-  const [errorMsg, setErrorMsg] = useState<string|null>(null);
+  const [location, setLocation] = useState<LocationState | null>({
+    latitude: 0,
+    longitude: 0,
+    latitudeDelta: 0,
+    longitudeDelta: 0
+  });
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [foregroundPermission, requestForegroundPermission] = useForegroundPermissions();
-  const [backgroundPermission, requestBackgroundPermission] = useBackgroundPermissions();
+  const [foregroundPermission, requestForegroundPermission] =
+    useForegroundPermissions();
+  const [backgroundPermission, requestBackgroundPermission] =
+    useBackgroundPermissions();
 
   // Get current location
   const getLocation = async () => {
-    console.log('getLocation')
+    // console.log('getLocation');
     try {
       setIsLoading(true);
 
@@ -34,16 +42,16 @@ const useDeviceLocation = () => {
 
       // Get current position
       const currentLocation = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.High,
+        accuracy: Location.Accuracy.High
       });
 
       setLocation({
         latitude: currentLocation.coords.latitude,
         longitude: currentLocation.coords.longitude,
         latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        longitudeDelta: 0.0421
       });
-    } catch (er:any) {
+    } catch (er: any) {
       setErrorMsg(er.message);
     } finally {
       setIsLoading(false);
@@ -76,20 +84,20 @@ const useDeviceLocation = () => {
         {
           accuracy: Location.Accuracy.High,
           timeInterval: 1000,
-          distanceInterval: 10,
+          distanceInterval: 10
         },
         (locationUpdate) => {
           setLocation({
             latitude: locationUpdate.coords.latitude,
             longitude: locationUpdate.coords.longitude,
             latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            longitudeDelta: 0.0421
           });
         }
       );
 
       return subscription; // Return subscription for cleanup
-    } catch (er:any) {
+    } catch (er: any) {
       setErrorMsg(er.message);
     } finally {
       setIsLoading(false);
@@ -119,8 +127,6 @@ const useDeviceLocation = () => {
     };
   }, []);
 
-  
-
   return {
     location,
     errorMsg,
@@ -131,12 +137,11 @@ const useDeviceLocation = () => {
     requestBackgroundPermission,
     getLocation,
     watchLocation,
-    checkLocationServices,
+    checkLocationServices
   };
 };
 
 export default useDeviceLocation;
-
 
 // import { View, Text } from 'react-native';
 // import React, { useState, useEffect } from 'react';
@@ -158,7 +163,7 @@ export default useDeviceLocation;
 //   const getCurrentLocation = async () => {
 //     setLoading(true);
 //     let { status } = await Location.requestForegroundPermissionsAsync(); // For ios this is 'When In Use'
-  
+
 //     if (status !== 'granted') {
 //       setErrorMsg('Permission to access location was denied');
 //       setLoading(false);

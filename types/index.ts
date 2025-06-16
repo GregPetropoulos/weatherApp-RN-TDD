@@ -106,10 +106,16 @@ export interface WeatherDataResponse {
 //   windSpeed?: string; // Wind speed (e.g., "10 mph")
 // }
 export interface WeatherData {
-  name: string;
-  main: { temp: number; humidity: number };
-  weather: { description: string; icon: string }[];
-  wind: { speed: number };
+  // name: string;
+  // main: { temp: number; humidity: number };
+  // weather: { description: string; icon: string }[];
+  // wind: { speed: number };
+   name: string; // City name from geocoding
+  temperature: number; // Current period temperature
+  shortForecast: string; // Short description (e.g., "Sunny")
+  detailedForecast: string; // Detailed description
+  humidity?: number; // Relative humidity (if available)
+  windSpeed?: string; // Wind speed (e.g., "10 mph")
 }
 
 export interface Location {

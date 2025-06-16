@@ -17,116 +17,113 @@ import IconButton from '@/components/IconButton';
 // import LocationService from '@/services/LocationService';
 import useDeviceLocation from '@/hooks/useDeviceLocation';
 import { getWeatherLocation } from '@/services/weather';
-import { useCallback } from 'react';
+import { useLocationCtx } from '@/context/LocationContext';
+import { Link, Redirect } from 'expo-router';
+import WeatherDisplay from '@/components/WeatherDisplay';
 
-const UknownLocationHomeScreen = () => {
-  const { location, errorMsg, isLoading, getLocation, watchLocation } =
-    useDeviceLocation();
+// const UknownLocationHomeScreen = () => {
+//   const { location, errorMsg, isLoading, getLocation, watchLocation } =
+//     useDeviceLocation();
 
-  if (isLoading) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <ActivityIndicator size={'large'} color={'blue'} />
-      </View>
-    );
-  }
+//   if (isLoading) {
+//     return (
+//       <View style={{ flex: 1, alignItems: 'center' }}>
+//         <ActivityIndicator size={'large'} color={'blue'} />
+//       </View>
+//     );
+//   }
 
-  if (errorMsg) {
-    return (
-      <View style={{ flex: 1, alignItems: 'center' }}>
-        <Text>Error: {errorMsg ?? 'There was an unknown error'}</Text>
-      </View>
-    );
-  }
-
-  //! AFTER THIS IS IMPLEMENTED THEN MOBXSTATETREE AND ASYNC STORAGE NEXT
-  // !AFTER THAT BUILD OUT UI
-  //! BUILD UX FOR ADD MORE THAN ONE LOCATION
-  const handleWeatherFetch = async () => {
-    const {
-      city,
-      county,
-      id,
-      state,
-      type,
-      geometry,
-      forecast12HourPeriods7Days,
-      forecastHourly7days,
-      timeZone,
-      radarStation
-    } = await getWeatherLocation(location?.latitude, location?.longitude);
-    console.log(
-      'weatherData',
-      city,
-      county,
-      type,
-      geometry.type,
-      geometry.coordinates,
-      timeZone,
-      radarStation
-    );
-  };
-  return (
-    <View
-      style={{
-        flex: 1,
-        borderColor: 'purple',
-        borderWidth: 2,
-        //TODO add in primary background color
-        // alignItems:'flex-start',
-        //  justifyContent:'center',
-        flexDirection: 'row'
-      }}>
-      {/* <View style={{ flex: 0.5 }}> */}
-      <IconButton
-        name='plus'
-        iconName='MaterialCommunityIcons'
-        size={28}
-        // titleStyle={{color:'yellow'}}
-        // color={'red'}
-        label={'Add Location'}
-        // onPress={handleFetchPosition}
-      />
-      {/* </View> */}
-      {/* <View style={{ flex: 0.5 }}> */}
-      <IconButton
-        name='map'
-        iconName='MaterialCommunityIcons'
-        size={28}
-        label={'Map'}
-        onPress={() => console.log('IconButton MAP pressed')}
-      />
-      {/* </View> */}
-      <View>
-        {location ? (
-          <Text>
-            Weather for: Latitude {location.latitude}, Longitude{' '}
-            {location.longitude}
-          </Text>
-        ) : (
-          <Text>No location data</Text>
-        )}
-        <Button label='Refresh Location' onPress={getLocation} />
-        <Text>Current Location from Store: {JSON.stringify(location)}</Text>
-        <Button
-          label='get weather for default location'
-          onPress={handleWeatherFetch}
-        />
-      </View>
-    </View>
-  );
-};
+//   if (errorMsg) {
+//     return (
+//       <View style={{ flex: 1, alignItems: 'center' }}>
+//         <Text>Error: {errorMsg ?? 'There was an unknown error'}</Text>
+//       </View>
+//     );
+//   }
+//   const handleWeatherFetch = async () => {
+//     const {
+//       city,
+//       county,
+//       id,
+//       state,
+//       type,
+//       geometry,
+//       forecast12HourPeriods7Days,
+//       forecastHourly7days,
+//       timeZone,
+//       radarStation
+//     } = await getWeatherLocation(location?.latitude, location?.longitude);
+//     console.log(
+//       'weatherData',
+//       city,
+//       county,
+//       type,
+//       geometry.type,
+//       geometry.coordinates,
+//       timeZone,
+//       radarStation
+//     );
+//   };
+//   return (
+//     <View
+//       style={{
+//         flex: 1,
+//         borderColor: 'purple',
+//         borderWidth: 2,
+//         //TODO add in primary background color
+//         // alignItems:'flex-start',
+//         //  justifyContent:'center',
+//         flexDirection: 'row'
+//       }}>
+//       {/* <View style={{ flex: 0.5 }}> */}
+//       <IconButton
+//         name='plus'
+//         iconName='MaterialCommunityIcons'
+//         size={28}
+//         // titleStyle={{color:'yellow'}}
+//         // color={'red'}
+//         label={'Add Location'}
+//         // onPress={handleFetchPosition}
+//       />
+//       {/* </View> */}
+//       {/* <View style={{ flex: 0.5 }}> */}
+//       <IconButton
+//         name='map'
+//         iconName='MaterialCommunityIcons'
+//         size={28}
+//         label={'Map'}
+//         onPress={() => console.log('IconButton MAP pressed')}
+//       />
+//       {/* </View> */}
+//       <View>
+//         {location ? (
+//           <Text>
+//             Weather for: Latitude {location.latitude}, Longitude{' '}
+//             {location.longitude}
+//           </Text>
+//         ) : (
+//           <Text>No location data</Text>
+//         )}
+//         <Button label='Refresh Location' onPress={getLocation} />
+//         <Text>Current Location from Store: {JSON.stringify(location)}</Text>
+//         <Button
+//           label='get weather for default location'
+//           onPress={handleWeatherFetch}
+//         />
+//       </View>
+//     </View>
+//   );
+// };
 export default function TabHomeScreen() {
-  const isUserLocation = false; // Make this a global state
-  return (
-    <>
-      {isUserLocation ? (
-        <Text>Full Home Component</Text>
-      ) : (
-        <UknownLocationHomeScreen />
-      )}
-    </>
-  );
+  const {defaultLocation}=useLocationCtx()
+// console.log('defaultLocation======',defaultLocation)
+   if (!defaultLocation) {
+    return <Redirect href="/add-location" />;
+  }
+
+    return(<View>
+    <WeatherDisplay location={defaultLocation} />
+    </View>)
 }
 
 // const styles = StyleSheet.create({

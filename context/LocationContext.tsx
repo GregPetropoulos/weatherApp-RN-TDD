@@ -1,4 +1,4 @@
-import React, { createContext,useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { AppContextType, Location } from '../types';
 import {
   getLocations,
@@ -6,19 +6,31 @@ import {
   getDefaultLocation,
   saveDefaultLocation
 } from '../utils/storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+export const LocationContext = createContext<AppContextType | undefined>(
+  undefined
+);
 
-export const LocationContext = createContext<AppContextType | undefined>(undefined);
-
-export const LocationProvider = ({children} : {children: React.ReactNode;}) => {
+export const LocationProvider = ({
+  children
+}: {
+  children: React.ReactNode;
+}) => {
   const [locations, setLocations] = useState<Location[]>([]);
-  const [defaultLocation, setDefaultLocationState] = useState<Location | null>(
-    null
-  );
+  const [defaultLocation, setDefaultLocationState] = useState<Location | null>({
+    id: '',
+    name: '',
+    lat: 0,
+    lon: 0
+  });
 
   useEffect(() => {
+    // AsyncStorage.clear()
     const init = async () => {
       const savedLocations = await getLocations();
+      console.log('ASYNC STORAGE===savedLocations-======', savedLocations);
       const savedDefault = await getDefaultLocation();
+      // console.log('@@@@@@savedDefault@@@@@---------', savedDefault);
       setLocations(savedLocations);
       setDefaultLocationState(savedDefault);
     };
@@ -26,7 +38,8 @@ export const LocationProvider = ({children} : {children: React.ReactNode;}) => {
   }, []);
 
   const addLocation = (location: Location) => {
-    const newLocations = [...locations, location];
+    const updatedLocations =[...locations, location]
+    const newLocations = [...new Set(updatedLocations)];
     setLocations(newLocations);
     saveLocations(newLocations);
     if (!defaultLocation) {

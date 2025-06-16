@@ -107,3 +107,16 @@ https://www.npmjs.com/package/react-native-get-location
 - National Oceanic and Atmospheric Administration
   - https://weather-gov.github.io/api/general-faqs
   - https://api.weather.gov/points/{lat},{lon}
+
+
+  ## Location Work Flow (Context, AsyncStorage, API Calls)
+  set location --> set context and sync storage --> make api call for locations weather data -- update UI and dynamic screens for more than one location (default location) set
+  
+  The application is wrapped in the location context and uses the AsyncStorage for persistence of the saved location. The location context is needed for dynamically setting screens and avoid prop drilling
+  The location can be set by 3 mechanism:
+  - Text input a location (user input api call)
+  - Use Current location (gets device location)
+  - Add Location from a list (predefined list to choose from base off map location)
+  
+  Once the location is set from the context an API call to a weather service will get the current data based off entered location
+  

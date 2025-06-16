@@ -72,6 +72,26 @@ export default function TabLayout() {
           )
         }}
       />
+       <Tabs.Screen
+        name='locations'
+        options={{
+          title: 'locations',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='home-group' size={28} color={color} />
+          )
+        }}
+      />
+      {/* STOPPED HERE WORK OUT NAVIGATION HIDING  */}
+       <Tabs.Screen
+        name='add-location'
+        options={{
+          href:null,
+          title: 'add-location',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name='home-group' size={28} color={color} />
+          )
+        }}
+      />
     </Tabs>
   );
 }
